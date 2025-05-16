@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: slack-to-azure
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn slackqueue.wsgi:application"
+    envVars:
+      - key: SERVICE_BUS_CONNECTION_STRING
+        sync: false
+      - key: QUEUE_NAME
+        sync: false
