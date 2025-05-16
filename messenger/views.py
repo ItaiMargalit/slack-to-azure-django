@@ -1,6 +1,7 @@
-from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from azure.servicebus import ServiceBusClient, ServiceBusMessage
+from urllib.parse import unquote
 import logging
 
 logger = logging.getLogger(__name__)
@@ -8,8 +9,8 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 def send_to_queue(request):
     if request.method == "POST":
-        text = request.POST.get("text", "")
-        logger.warning(f"Received text from Slack: {text!r}")
+        text = unquote(request.POST.get("text", ""))
+        logger.warning(f"Received decoded text from Slack: {text!r}")
 
         try:
             conn_str, queue_name, message = text.split("|", 2)
@@ -32,4 +33,4 @@ def send_to_queue(request):
             logger.exception("Unexpected error")
             return JsonResponse({"error": str(e)}, status=500)
 
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+    return JsonResponse({"error": "
