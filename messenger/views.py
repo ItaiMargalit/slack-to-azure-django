@@ -33,4 +33,4 @@ def send_to_queue(request):
             logger.exception("Unexpected error")
             return JsonResponse({"error": str(e)}, status=500)
 
-    return JsonResponse({"error": "
+    return JsonResponse({"error": "Invalid request method"}, status=405)
