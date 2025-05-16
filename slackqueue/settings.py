@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-uo02xmfb@9yk45ej8+!4wb9#fnjw&(#^v=)#^1kq-tq0bp@1!b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    "slack-to-azure-django.onrender.com",  # replace with your Render URL
+    "127.0.0.1",
+    "localhost",
+]
 
 
 # Application definition
